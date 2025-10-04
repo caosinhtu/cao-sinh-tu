@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Utada-style Cursor Demo</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #000; /* bạn có thể đổi */
+    color: #fff;
+    font-family: sans-serif;
+    cursor: none; /* ẩn cursor mặc định */
+  }
+
+  a, button {
+    color: #ff8080;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ff8080;
+    margin: 8px;
+    display: inline-block;
+  }
+
+  /* custom cursor */
+  .mouse-dot {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+    mix-blend-mode: difference;
+    z-index: 9999;
+  }
+
+  .mouse-dot.active {
+    transform: translate(-50%, -50%) scale(0.5);
+    background-color: #fff;
+    border-color: #fff;
+  }
+</style>
+</head>
+<body>
+  <h1>Utada-style Cursor Demo</h1>
+  <p>Hover lên <a href="#">link</a> hoặc <button>button</button> để thấy hiệu ứng.</p>
+
+  <div class="mouse-dot" id="dot"></div>
+
+  <script>
+    const dot = document.getElementById('dot');
+    document.addEventListener('mousemove', e => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mouseover', e => {
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
